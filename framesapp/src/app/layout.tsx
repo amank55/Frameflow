@@ -6,7 +6,7 @@ import { Manrope} from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import { ThemeProvider } from "../components/themes";
 const manrope = Manrope({ subsets: ['latin'] })
-
+import ReactQueryProvider from '../react-query'
 
 export const metadata: Metadata = {
   title: "Frameflow",
@@ -23,8 +23,8 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${manrope.className} bg-[#171717]`}>
-      
-        {children}
+      <ReactQueryProvider>{children}</ReactQueryProvider>
+       
       </body>
     </html>
     </ClerkProvider>

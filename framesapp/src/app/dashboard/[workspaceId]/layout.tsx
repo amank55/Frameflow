@@ -7,6 +7,8 @@ import { getWorkspaceFolders} from '@/src/actions/workspace';
 import { getAllUserVideos } from '@/src/actions/workspace';
 import { getWorkSpaces } from '@/src/actions/workspace';
 import { getNotifications } from '@/src/actions/user';
+import Slider from '@/src/components/global/sidebar';
+import Sidebar from '@/src/components/global/sidebar';
 
 
 type Props = {
@@ -26,27 +28,36 @@ const Layout = async ({ params: { workspaceId}, children }: Props) => {
   }
   if (!hasAccess.data?.workspace) return null
 
-  const querry = new QueryClient()
-  await querry.prefetchQuery({
+  const queryClient = new QueryClient()
+  await queryClient.prefetchQuery({
     queryKey : ["workspace-folders"],
     queryFn: ()=>getWorkspaceFolders(workspaceId),
   })
 
-  await querry.prefetchQuery({
+  await queryClient.prefetchQuery({
     queryKey : ["user-videos"],
     queryFn: ()=>getAllUserVideos(workspaceId),
   })
 
-  await querry.prefetchQuery({
+  await queryClient.prefetchQuery({
     queryKey : ["user-workspace"],
     queryFn: ()=>getWorkSpaces(),
   })
 
-  await querry.prefetchQuery({
+  await queryClient.prefetchQuery({
     queryKey : ["user-notifications"],
     queryFn: ()=>getNotifications(),
   })
-  return <HydrationBoundary state={dehydrate}></HydrationBoundary>
+  const dehydratedState = dehydrate(queryClient);
+
+  return (
+    <HydrationBoundary state={dehydratedState}>
+      <div className="flex h-screen w-screen">
+        <Sidebar activeWorkspace={workspaceId} />
+        {children}
+      </div>
+    </HydrationBoundary>
+  );
 };
 
 export default Layout;
