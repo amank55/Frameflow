@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 
 type Props = {
-  activeWorkspace: string;
-};
+  activeWorkspaceId: string
+}
 
-const Sidebar = (props: Props) => {
+const Sidebar = ({activeWorkspaceId}: Props) => {
   return (
-    <div>{props.activeWorkspace}</div>
-  );
-};
+    <div>Slider</div>
+  )
+}
 
-export default Sidebar;
+export default Sidebar
