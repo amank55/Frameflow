@@ -70,4 +70,30 @@ export const onAuthenticateUser = async () => {
      return { status: 500 }
    }
  }
+
+ export const getNotifications = async () => {
+  try {
+    const user = await currentUser()
+    if (!user) return { status: 404 }
+    const notifications = await Client.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        notification: true,
+        _count: {
+          select: {
+            notification: true,
+          },
+        },
+      },
+    })
+
+    if (notifications && notifications.notification.length > 0)
+      return { status: 200, data: notifications }
+    return { status: 404, data: [] }
+  } catch (error) {
+    return { status: 400, data: [] }
+  }
+}
  
