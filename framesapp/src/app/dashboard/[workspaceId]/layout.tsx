@@ -1,11 +1,11 @@
 import React from 'react';
 import { redirect } from 'next/navigation';
-import { onAuthenticateUser } from '@/src/actions/user';
-import { verifyAccessToWorkspace } from '@/src/actions/workspace';
+import { onAuthenticateUser } from '@/actions/user';
+import { verifyAccessToWorkspace } from '@/actions/workspace';
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query';
-import { getWorkspaceFolders, getAllUserVideos, getWorkSpaces } from '@/src/actions/workspace';
-import { getNotifications } from '@/src/actions/user';
-import Sidebar from '@/src/components/global/sidebar';
+import { getWorkspaceFolders, getAllUserVideos, getWorkSpaces } from '@/actions/workspace';
+import { getNotifications } from '@/actions/user';
+import Sidebar from '@/components/global/sidebar';
 
 type Props = {
   params: { workspaceId: string };

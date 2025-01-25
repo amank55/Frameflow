@@ -14,21 +14,25 @@ import React from 'react';
 import { Separator } from '@/components/ui/separator';
 import { useQueryData } from '@/hooks/useQueryData';
 import { WorkspaceProps } from '@/types/index.type';
+import { workAsyncStorage } from 'next/dist/server/app-render/entry-base';
 import { getWorkSpaces } from '@/actions/workspace';
-//import { getWorkSpaces } from '@/services/workspaceService'; // Adjust the import path as needed
+
 
 type Props = {
   activeWorkspaceId: string;
 };
 
+const { data, isFetched } = useQueryData(['user-workspaces'], getWorkSpaces)
+const { data: workspace } = data as WorkspaceProps
+
 const Sidebar = ({ activeWorkspaceId }: Props) => {
   const router = useRouter();
-
-  const { data, isFetched } = useQueryData(['user-workspaces'],getWorkSpaces)
-  const { data: workspace } = data as WorkspaceProps
   const onChangeActiveWorkSpace = (value: string) => {
     router.push(`/dashboard/${value}`);
   };
+
+  
+
 
   return (
     <div className='bg-[#111111] flex-none relative p-3 h-full w-[180px] flex flex-col gap-4 items-center overflow-hidden'>
@@ -48,6 +52,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
             <SelectGroup>
               <SelectLabel>Workspaces</SelectLabel>
              <Separator/>
+             
             </SelectGroup>
           </SelectContent>
         </Select>

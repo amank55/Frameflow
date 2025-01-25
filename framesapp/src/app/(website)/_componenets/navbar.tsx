@@ -1,4 +1,4 @@
-import { Button } from '@/src/components/ui/button';
+import { Button } from '@/components/ui/button';
 import { Menu, User } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -30,12 +30,10 @@ const LandingPageNavBar = (props: Props) => {
         <Link href="/">Pricing</Link>
         <Link href="/">Contact</Link>
         <Link href="/auth/sign-in">
-          <a>
-            <Button className="text-base flex gap-x-2">
-              <User fill="#000" aria-label="User Icon" />
-              Login
-            </Button>
-          </a>
+          <Button className="text-base flex gap-x-2">
+            <User fill="#000" />
+            Login
+          </Button>
         </Link>
       </div>
 
