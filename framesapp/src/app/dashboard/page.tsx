@@ -1,4 +1,4 @@
-import { onAuthenticateUser } from '@/src/actions/user'
+import { onAuthenticateUser } from '@/actions/user'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
